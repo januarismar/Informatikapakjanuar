@@ -1,1 +1,599 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Aplikasi - Portal Canva Code</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .app-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .app-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .category-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        .search-box {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen">
+    <!-- Hero Section -->
+    <div class="hero-section text-white py-16 mb-12">
+        <div class="container mx-auto px-4 text-center">
+            <div class="floating-animation inline-block mb-6">
+                <div class="text-6xl mb-4">🚀</div>
+            </div>
+            <h1 class="text-5xl font-bold mb-4">Dashboard Aplikasi Canva Code</h1>
+            <p class="text-xl opacity-90 mb-8">Portal lengkap untuk mengakses semua aplikasi yang pernah Anda buat</p>
+            
+            <!-- Search Box -->
+            <div class="max-w-md mx-auto search-box rounded-full p-2 shadow-lg">
+                <div class="flex items-center">
+                    <input type="text" id="searchInput" placeholder="Cari aplikasi..." class="flex-1 px-4 py-2 bg-transparent outline-none text-gray-800">
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 pb-12">
+        <!-- Statistics -->
+        <div class="grid md:grid-cols-4 gap-6 mb-12">
+            <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+                <div class="text-3xl mb-2">📊</div>
+                <div class="text-2xl font-bold text-gray-800" id="totalApps">25</div>
+                <div class="text-gray-600">Total Aplikasi</div>
+            </div>
+            <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+                <div class="text-3xl mb-2">🎯</div>
+                <div class="text-2xl font-bold text-green-600" id="activeApps">23</div>
+                <div class="text-gray-600">Aplikasi Aktif</div>
+            </div>
+            <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+                <div class="text-3xl mb-2">📈</div>
+                <div class="text-2xl font-bold text-blue-600" id="categories">8</div>
+                <div class="text-gray-600">Kategori</div>
+            </div>
+            <div class="bg-white rounded-xl p-6 shadow-lg text-center">
+                <div class="text-3xl mb-2">⭐</div>
+                <div class="text-2xl font-bold text-purple-600" id="favorites">7</div>
+                <div class="text-gray-600">Favorit</div>
+            </div>
+        </div>
+
+        <!-- Quick Access - Favorit -->
+        <div class="mb-12">
+            <div class="category-header text-white p-4 rounded-t-xl">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <span class="mr-3">⭐</span>
+                    Aplikasi Favorit
+                </h2>
+            </div>
+            <div class="bg-white rounded-b-xl p-6 shadow-lg">
+                <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6" id="favoriteApps">
+                    <!-- Favorite apps will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Kategori Aplikasi -->
+        
+        <!-- 1. Pendidikan & Pembelajaran -->
+        <div class="mb-8">
+            <div class="category-header text-white p-4 rounded-t-xl">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <span class="mr-3">📚</span>
+                    Pendidikan & Pembelajaran
+                </h2>
+            </div>
+            <div class="bg-white rounded-b-xl p-6 shadow-lg">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('math-formulas')">
+                        <div class="text-3xl mb-3">📐</div>
+                        <h3 class="text-xl font-bold mb-2">Rumus Matematika SMP</h3>
+                        <p class="text-sm opacity-90">Kalkulator interaktif dengan simulasi geometri</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Matematika</span>
+                            <span class="text-xs opacity-75">Baru</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('periodic-table')">
+                        <div class="text-3xl mb-3">🧪</div>
+                        <h3 class="text-xl font-bold mb-2">Tabel Periodik Interaktif</h3>
+                        <p class="text-sm opacity-90">Eksplorasi unsur kimia dengan detail lengkap</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Kimia</span>
+                            <span class="text-xs opacity-75">Populer</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('language-learning')">
+                        <div class="text-3xl mb-3">🌍</div>
+                        <h3 class="text-xl font-bold mb-2">Belajar Bahasa</h3>
+                        <p class="text-sm opacity-90">Platform pembelajaran bahasa asing</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Bahasa</span>
+                            <span class="text-xs opacity-75">Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Produktivitas & Tools -->
+        <div class="mb-8">
+            <div class="category-header text-white p-4 rounded-t-xl">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <span class="mr-3">⚡</span>
+                    Produktivitas & Tools
+                </h2>
+            </div>
+            <div class="bg-white rounded-b-xl p-6 shadow-lg">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('task-manager')">
+                        <div class="text-3xl mb-3">✅</div>
+                        <h3 class="text-xl font-bold mb-2">Task Manager</h3>
+                        <p class="text-sm opacity-90">Kelola tugas dan proyek dengan mudah</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Produktivitas</span>
+                            <span class="text-xs opacity-75">⭐</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('note-taking')">
+                        <div class="text-3xl mb-3">📝</div>
+                        <h3 class="text-xl font-bold mb-2">Smart Notes</h3>
+                        <p class="text-sm opacity-90">Aplikasi catatan dengan fitur canggih</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Notes</span>
+                            <span class="text-xs opacity-75">Trending</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('calendar')">
+                        <div class="text-3xl mb-3">📅</div>
+                        <h3 class="text-xl font-bold mb-2">Calendar Pro</h3>
+                        <p class="text-sm opacity-90">Kalender pintar dengan reminder</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Kalender</span>
+                            <span class="text-xs opacity-75">⭐</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Keuangan & Bisnis -->
+        <div class="mb-8">
+            <div class="category-header text-white p-4 rounded-t-xl">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <span class="mr-3">💰</span>
+                    Keuangan & Bisnis
+                </h2>
+            </div>
+            <div class="bg-white rounded-b-xl p-6 shadow-lg">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('expense-tracker')">
+                        <div class="text-3xl mb-3">💳</div>
+                        <h3 class="text-xl font-bold mb-2">Expense Tracker</h3>
+                        <p class="text-sm opacity-90">Lacak pengeluaran dan anggaran harian</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Keuangan</span>
+                            <span class="text-xs opacity-75">⭐</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('invoice-generator')">
+                        <div class="text-3xl mb-3">🧾</div>
+                        <h3 class="text-xl font-bold mb-2">Invoice Generator</h3>
+                        <p class="text-sm opacity-90">Buat invoice profesional dengan mudah</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Bisnis</span>
+                            <span class="text-xs opacity-75">Populer</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('crypto-tracker')">
+                        <div class="text-3xl mb-3">₿</div>
+                        <h3 class="text-xl font-bold mb-2">Crypto Tracker</h3>
+                        <p class="text-sm opacity-90">Monitor harga cryptocurrency real-time</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Crypto</span>
+                            <span class="text-xs opacity-75">Live</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Hiburan & Games -->
+        <div class="mb-8">
+            <div class="category-header text-white p-4 rounded-t-xl">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <span class="mr-3">🎮</span>
+                    Hiburan & Games
+                </h2>
+            </div>
+            <div class="bg-white rounded-b-xl p-6 shadow-lg">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('puzzle-game')">
+                        <div class="text-3xl mb-3">🧩</div>
+                        <h3 class="text-xl font-bold mb-2">Puzzle Master</h3>
+                        <p class="text-sm opacity-90">Koleksi puzzle dan teka-teki menarik</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Puzzle</span>
+                            <span class="text-xs opacity-75">⭐</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('music-player')">
+                        <div class="text-3xl mb-3">🎵</div>
+                        <h3 class="text-xl font-bold mb-2">Music Player</h3>
+                        <p class="text-sm opacity-90">Pemutar musik dengan visualizer</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Musik</span>
+                            <span class="text-xs opacity-75">Trending</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('quiz-app')">
+                        <div class="text-3xl mb-3">🧠</div>
+                        <h3 class="text-xl font-bold mb-2">Quiz Challenge</h3>
+                        <p class="text-sm opacity-90">Kuis interaktif berbagai topik</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Kuis</span>
+                            <span class="text-xs opacity-75">⭐</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Kesehatan & Lifestyle -->
+        <div class="mb-8">
+            <div class="category-header text-white p-4 rounded-t-xl">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <span class="mr-3">🏃‍♂️</span>
+                    Kesehatan & Lifestyle
+                </h2>
+            </div>
+            <div class="bg-white rounded-b-xl p-6 shadow-lg">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('fitness-tracker')">
+                        <div class="text-3xl mb-3">💪</div>
+                        <h3 class="text-xl font-bold mb-2">Fitness Tracker</h3>
+                        <p class="text-sm opacity-90">Pantau aktivitas dan latihan harian</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Fitness</span>
+                            <span class="text-xs opacity-75">⭐</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('recipe-book')">
+                        <div class="text-3xl mb-3">👨‍🍳</div>
+                        <h3 class="text-xl font-bold mb-2">Recipe Book</h3>
+                        <p class="text-sm opacity-90">Koleksi resep masakan favorit</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Kuliner</span>
+                            <span class="text-xs opacity-75">Populer</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('meditation')">
+                        <div class="text-3xl mb-3">🧘‍♀️</div>
+                        <h3 class="text-xl font-bold mb-2">Meditation Guide</h3>
+                        <p class="text-sm opacity-90">Panduan meditasi dan relaksasi</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Wellness</span>
+                            <span class="text-xs opacity-75">Zen</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Kreatif & Design -->
+        <div class="mb-8">
+            <div class="category-header text-white p-4 rounded-t-xl">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <span class="mr-3">🎨</span>
+                    Kreatif & Design
+                </h2>
+            </div>
+            <div class="bg-white rounded-b-xl p-6 shadow-lg">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('color-palette')">
+                        <div class="text-3xl mb-3">🎨</div>
+                        <h3 class="text-xl font-bold mb-2">Color Palette Generator</h3>
+                        <p class="text-sm opacity-90">Buat palet warna untuk desain</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Design</span>
+                            <span class="text-xs opacity-75">⭐</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('logo-maker')">
+                        <div class="text-3xl mb-3">🏷️</div>
+                        <h3 class="text-xl font-bold mb-2">Logo Maker</h3>
+                        <p class="text-sm opacity-90">Pembuat logo sederhana dan elegan</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Logo</span>
+                            <span class="text-xs opacity-75">Trending</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('photo-editor')">
+                        <div class="text-3xl mb-3">📸</div>
+                        <h3 class="text-xl font-bold mb-2">Photo Editor</h3>
+                        <p class="text-sm opacity-90">Edit foto dengan filter dan efek</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Photo</span>
+                            <span class="text-xs opacity-75">Pro</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Utilitas & Converter -->
+        <div class="mb-8">
+            <div class="category-header text-white p-4 rounded-t-xl">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <span class="mr-3">🔧</span>
+                    Utilitas & Converter
+                </h2>
+            </div>
+            <div class="bg-white rounded-b-xl p-6 shadow-lg">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('unit-converter')">
+                        <div class="text-3xl mb-3">⚖️</div>
+                        <h3 class="text-xl font-bold mb-2">Unit Converter</h3>
+                        <p class="text-sm opacity-90">Konversi satuan panjang, berat, suhu</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Converter</span>
+                            <span class="text-xs opacity-75">Essential</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('qr-generator')">
+                        <div class="text-3xl mb-3">📱</div>
+                        <h3 class="text-xl font-bold mb-2">QR Code Generator</h3>
+                        <p class="text-sm opacity-90">Buat QR code untuk berbagai keperluan</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">QR Code</span>
+                            <span class="text-xs opacity-75">⭐</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('password-generator')">
+                        <div class="text-3xl mb-3">🔐</div>
+                        <h3 class="text-xl font-bold mb-2">Password Generator</h3>
+                        <p class="text-sm opacity-90">Buat password kuat dan aman</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Security</span>
+                            <span class="text-xs opacity-75">Secure</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. Aplikasi Khusus -->
+        <div class="mb-8">
+            <div class="category-header text-white p-4 rounded-t-xl">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <span class="mr-3">🌟</span>
+                    Aplikasi Khusus
+                </h2>
+            </div>
+            <div class="bg-white rounded-b-xl p-6 shadow-lg">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('weather-app')">
+                        <div class="text-3xl mb-3">🌤️</div>
+                        <h3 class="text-xl font-bold mb-2">Weather Forecast</h3>
+                        <p class="text-sm opacity-90">Prakiraan cuaca akurat dan detail</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Weather</span>
+                            <span class="text-xs opacity-75">Live</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('translator')">
+                        <div class="text-3xl mb-3">🌐</div>
+                        <h3 class="text-xl font-bold mb-2">Smart Translator</h3>
+                        <p class="text-sm opacity-90">Terjemahan multi-bahasa instan</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Translate</span>
+                            <span class="text-xs opacity-75">AI</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('habit-tracker')">
+                        <div class="text-3xl mb-3">📊</div>
+                        <h3 class="text-xl font-bold mb-2">Habit Tracker</h3>
+                        <p class="text-sm opacity-90">Pantau dan bangun kebiasaan baik</p>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Habits</span>
+                            <span class="text-xs opacity-75">⭐</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center py-8 border-t border-gray-200">
+            <p class="text-gray-600 mb-4">🚀 Terus berkembang dengan aplikasi-aplikasi baru!</p>
+            <div class="flex justify-center space-x-4">
+                <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition-colors">
+                    📝 Request Aplikasi Baru
+                </button>
+                <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-colors">
+                    💡 Berikan Feedback
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-xl p-8 text-center">
+            <div class="pulse-animation text-4xl mb-4">🚀</div>
+            <h3 class="text-xl font-bold mb-2">Memuat Aplikasi...</h3>
+            <p class="text-gray-600" id="loadingText">Sedang menyiapkan aplikasi untuk Anda</p>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const appCards = document.querySelectorAll('.app-card');
+            
+            appCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    card.parentElement.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Populate favorite apps
+        function populateFavoriteApps() {
+            const favoriteApps = [
+                { id: 'math-formulas', icon: '📐', title: 'Rumus Matematika SMP', category: 'Matematika' },
+                { id: 'task-manager', icon: '✅', title: 'Task Manager', category: 'Produktivitas' },
+                { id: 'expense-tracker', icon: '💳', title: 'Expense Tracker', category: 'Keuangan' },
+                { id: 'puzzle-game', icon: '🧩', title: 'Puzzle Master', category: 'Game' },
+                { id: 'fitness-tracker', icon: '💪', title: 'Fitness Tracker', category: 'Kesehatan' },
+                { id: 'color-palette', icon: '🎨', title: 'Color Palette Generator', category: 'Design' },
+                { id: 'qr-generator', icon: '📱', title: 'QR Code Generator', category: 'Utilitas' }
+            ];
+
+            const container = document.getElementById('favoriteApps');
+            container.innerHTML = favoriteApps.map(app => `
+                <div class="app-card text-white rounded-xl p-4 cursor-pointer" onclick="openApp('${app.id}')">
+                    <div class="text-2xl mb-2">${app.icon}</div>
+                    <h4 class="font-bold mb-1">${app.title}</h4>
+                    <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">${app.category}</span>
+                </div>
+            `).join('');
+        }
+
+        // Open app function
+        function openApp(appId) {
+            const loadingModal = document.getElementById('loadingModal');
+            const loadingText = document.getElementById('loadingText');
+            
+            // Show loading
+            loadingModal.classList.remove('hidden');
+            
+            // Simulate loading with different messages
+            const messages = [
+                'Menyiapkan antarmuka...',
+                'Memuat komponen...',
+                'Hampir selesai...',
+                'Aplikasi siap digunakan!'
+            ];
+            
+            let messageIndex = 0;
+            const messageInterval = setInterval(() => {
+                if (messageIndex < messages.length) {
+                    loadingText.textContent = messages[messageIndex];
+                    messageIndex++;
+                } else {
+                    clearInterval(messageInterval);
+                    
+                    // Hide loading and show app info
+                    setTimeout(() => {
+                        loadingModal.classList.add('hidden');
+                        showAppInfo(appId);
+                    }, 500);
+                }
+            }, 800);
+        }
+
+        // Show app info (placeholder for actual app opening)
+        function showAppInfo(appId) {
+            const appNames = {
+                'math-formulas': 'Rumus Matematika SMP',
+                'task-manager': 'Task Manager',
+                'expense-tracker': 'Expense Tracker',
+                'puzzle-game': 'Puzzle Master',
+                'fitness-tracker': 'Fitness Tracker',
+                'color-palette': 'Color Palette Generator',
+                'qr-generator': 'QR Code Generator'
+            };
+            
+            alert(`🚀 Membuka aplikasi: ${appNames[appId] || 'Aplikasi'}\n\nDalam implementasi nyata, ini akan membuka aplikasi yang sesuai atau mengarahkan ke URL aplikasi tersebut.`);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            populateFavoriteApps();
+            
+            // Animate statistics on load
+            setTimeout(() => {
+                animateNumber('totalApps', 25);
+                animateNumber('activeApps', 23);
+                animateNumber('categories', 8);
+                animateNumber('favorites', 7);
+            }, 500);
+        });
+
+        // Animate numbers
+        function animateNumber(elementId, targetNumber) {
+            const element = document.getElementById(elementId);
+            let currentNumber = 0;
+            const increment = targetNumber / 20;
+            
+            const timer = setInterval(() => {
+                currentNumber += increment;
+                if (currentNumber >= targetNumber) {
+                    currentNumber = targetNumber;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(currentNumber);
+            }, 50);
+        }
+
+        // Close loading modal when clicking outside
+        document.getElementById('loadingModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978a67120578959b',t:'MTc1Njc4ODc5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
 
