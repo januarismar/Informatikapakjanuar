@@ -1,599 +1,476 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Aplikasi - Portal Canva Code</title>
+    <title>Informatika Fase D</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .app-card {
+        body {
+            box-sizing: border-box;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
             transition: all 0.3s ease;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        .app-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-        .category-header {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-        .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .floating-animation {
-            animation: float 6s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-        .search-box {
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.9);
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen">
-    <!-- Hero Section -->
-    <div class="hero-section text-white py-16 mb-12">
-        <div class="container mx-auto px-4 text-center">
-            <div class="floating-animation inline-block mb-6">
-                <div class="text-6xl mb-4">🚀</div>
-            </div>
-            <h1 class="text-5xl font-bold mb-4">Dashboard Aplikasi Canva Code</h1>
-            <p class="text-xl opacity-90 mb-8">Portal lengkap untuk mengakses semua aplikasi yang pernah Anda buat</p>
-            
-            <!-- Search Box -->
-            <div class="max-w-md mx-auto search-box rounded-full p-2 shadow-lg">
+<body class="h-full bg-gray-50">
+    <!-- Navigation -->
+    <nav class="gradient-bg shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <input type="text" id="searchInput" placeholder="Cari aplikasi..." class="flex-1 px-4 py-2 bg-transparent outline-none text-gray-800">
-                    <button class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    <h1 class="text-white text-xl font-bold">📚 Informatika Fase D</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <button onclick="showPage('home')" class="nav-btn text-white hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-sm font-medium transition-colors">Beranda</button>
+                        <button onclick="showPage('berpikir')" class="nav-btn text-white hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-sm font-medium transition-colors">Berpikir Komputasional</button>
+                        <button onclick="showPage('algoritma')" class="nav-btn text-white hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-sm font-medium transition-colors">Algoritma & Otomasi</button>
+                        <button onclick="showPage('internet')" class="nav-btn text-white hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-sm font-medium transition-colors">Internet & Kolaborasi</button>
+                        <button onclick="showPage('etika')" class="nav-btn text-white hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-sm font-medium transition-colors">Kreasi & Etika Digital</button>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-white hover:bg-white hover:bg-opacity-20 p-2 rounded-md">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="container mx-auto px-4 pb-12">
-        <!-- Statistics -->
-        <div class="grid md:grid-cols-4 gap-6 mb-12">
-            <div class="bg-white rounded-xl p-6 shadow-lg text-center">
-                <div class="text-3xl mb-2">📊</div>
-                <div class="text-2xl font-bold text-gray-800" id="totalApps">25</div>
-                <div class="text-gray-600">Total Aplikasi</div>
-            </div>
-            <div class="bg-white rounded-xl p-6 shadow-lg text-center">
-                <div class="text-3xl mb-2">🎯</div>
-                <div class="text-2xl font-bold text-green-600" id="activeApps">23</div>
-                <div class="text-gray-600">Aplikasi Aktif</div>
-            </div>
-            <div class="bg-white rounded-xl p-6 shadow-lg text-center">
-                <div class="text-3xl mb-2">📈</div>
-                <div class="text-2xl font-bold text-blue-600" id="categories">8</div>
-                <div class="text-gray-600">Kategori</div>
-            </div>
-            <div class="bg-white rounded-xl p-6 shadow-lg text-center">
-                <div class="text-3xl mb-2">⭐</div>
-                <div class="text-2xl font-bold text-purple-600" id="favorites">7</div>
-                <div class="text-gray-600">Favorit</div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white bg-opacity-10 backdrop-blur-sm">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <button onclick="showPage('home'); toggleMobileMenu()" class="block text-white hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-base font-medium w-full text-left">Beranda</button>
+                <button onclick="showPage('berpikir'); toggleMobileMenu()" class="block text-white hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-base font-medium w-full text-left">Berpikir Komputasional</button>
+                <button onclick="showPage('algoritma'); toggleMobileMenu()" class="block text-white hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-base font-medium w-full text-left">Algoritma & Otomasi</button>
+                <button onclick="showPage('internet'); toggleMobileMenu()" class="block text-white hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-base font-medium w-full text-left">Internet & Kolaborasi</button>
+                <button onclick="showPage('etika'); toggleMobileMenu()" class="block text-white hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-base font-medium w-full text-left">Kreasi & Etika Digital</button>
             </div>
         </div>
+    </nav>
 
-        <!-- Quick Access - Favorit -->
-        <div class="mb-12">
-            <div class="category-header text-white p-4 rounded-t-xl">
-                <h2 class="text-2xl font-bold flex items-center">
-                    <span class="mr-3">⭐</span>
-                    Aplikasi Favorit
-                </h2>
-            </div>
-            <div class="bg-white rounded-b-xl p-6 shadow-lg">
-                <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6" id="favoriteApps">
-                    <!-- Favorite apps will be populated here -->
+    <!-- Main Content -->
+    <main class="min-h-full">
+        <!-- Halaman Beranda -->
+        <div id="home-page" class="page-content">
+            <div class="gradient-bg py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 fade-in">
+                        🖥️ Informatika Fase D
+                    </h1>
+                    <p class="text-xl md:text-2xl text-white mb-8 fade-in">
+                        Pembelajaran Informatika untuk Siswa Kelas VII-IX
+                    </p>
                 </div>
             </div>
-        </div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="fade-in">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Apa itu Mata Pelajaran Informatika?</h2>
+                        <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                            Mata pelajaran Informatika adalah bidang studi yang mempelajari tentang teknologi informasi dan komunikasi, 
+                            pemrograman, berpikir komputasional, dan etika digital. Mata pelajaran ini bertujuan untuk membekali siswa 
+                            dengan keterampilan abad ke-21 yang sangat dibutuhkan di era digital.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            Informatika tidak hanya tentang menggunakan komputer, tetapi juga tentang memahami cara kerja teknologi, 
+                            memecahkan masalah secara sistematis, dan menciptakan solusi inovatif menggunakan teknologi digital.
+                        </p>
+                    </div>
+                    <div class="text-center fade-in">
+                        <div class="bg-white rounded-lg shadow-xl p-8 card-hover">
+                            <div class="text-6xl mb-4">💻</div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">Keterampilan Digital</h3>
+                            <p class="text-gray-600">Membangun fondasi keterampilan teknologi untuk masa depan</p>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- Kategori Aplikasi -->
-        
-        <!-- 1. Pendidikan & Pembelajaran -->
-        <div class="mb-8">
-            <div class="category-header text-white p-4 rounded-t-xl">
-                <h2 class="text-2xl font-bold flex items-center">
-                    <span class="mr-3">📚</span>
-                    Pendidikan & Pembelajaran
-                </h2>
-            </div>
-            <div class="bg-white rounded-b-xl p-6 shadow-lg">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('https://pakjanuar.my.canva.site/mathformulasmp')">
-                        <div class="text-3xl mb-3">📐</div>
-                        <h3 class="text-xl font-bold mb-2">Rumus Matematika SMP</h3>
-                        <p class="text-sm opacity-90">Kalkulator interaktif dengan simulasi geometri</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Matematika</span>
-                            <span class="text-xs opacity-75">Baru</span>
+                <div class="mt-20">
+                    <h2 class="text-3xl font-bold text-gray-900 text-center mb-12 fade-in">Capaian Pembelajaran Informatika Fase D</h2>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="bg-white rounded-lg shadow-lg p-6 card-hover fade-in">
+                            <div class="text-4xl mb-4 text-center">🧠</div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Berpikir Komputasional</h3>
+                            <p class="text-gray-600 text-center">Mengembangkan kemampuan memecahkan masalah secara sistematis dan logis</p>
                         </div>
-                    </div>
-                    
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('periodic-table')">
-                        <div class="text-3xl mb-3">🧪</div>
-                        <h3 class="text-xl font-bold mb-2">Tabel Periodik Interaktif</h3>
-                        <p class="text-sm opacity-90">Eksplorasi unsur kimia dengan detail lengkap</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Kimia</span>
-                            <span class="text-xs opacity-75">Populer</span>
+                        <div class="bg-white rounded-lg shadow-lg p-6 card-hover fade-in">
+                            <div class="text-4xl mb-4 text-center">⚙️</div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Algoritma & Otomasi</h3>
+                            <p class="text-gray-600 text-center">Memahami langkah-langkah sistematis dan otomatisasi proses</p>
                         </div>
-                    </div>
-                    
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('language-learning')">
-                        <div class="text-3xl mb-3">🌍</div>
-                        <h3 class="text-xl font-bold mb-2">Belajar Bahasa</h3>
-                        <p class="text-sm opacity-90">Platform pembelajaran bahasa asing</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Bahasa</span>
-                            <span class="text-xs opacity-75">Coming Soon</span>
+                        <div class="bg-white rounded-lg shadow-lg p-6 card-hover fade-in">
+                            <div class="text-4xl mb-4 text-center">🌐</div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Internet & Kolaborasi</h3>
+                            <p class="text-gray-600 text-center">Memanfaatkan internet untuk pembelajaran dan kolaborasi digital</p>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-lg p-6 card-hover fade-in">
+                            <div class="text-4xl mb-4 text-center">🎨</div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Kreasi & Etika Digital</h3>
+                            <p class="text-gray-600 text-center">Berkreasi dengan teknologi sambil memahami etika digital</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 2. Produktivitas & Tools -->
-        <div class="mb-8">
-            <div class="category-header text-white p-4 rounded-t-xl">
-                <h2 class="text-2xl font-bold flex items-center">
-                    <span class="mr-3">⚡</span>
-                    Produktivitas & Tools
-                </h2>
+        <!-- Halaman Berpikir Komputasional -->
+        <div id="berpikir-page" class="page-content hidden">
+            <div class="bg-blue-600 py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">🧠 Berpikir Komputasional & Analisis Data</h1>
+                    <p class="text-xl text-blue-100">Mengembangkan kemampuan memecahkan masalah secara sistematis</p>
+                </div>
             </div>
-            <div class="bg-white rounded-b-xl p-6 shadow-lg">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('task-manager')">
-                        <div class="text-3xl mb-3">✅</div>
-                        <h3 class="text-xl font-bold mb-2">Task Manager</h3>
-                        <p class="text-sm opacity-90">Kelola tugas dan proyek dengan mudah</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Produktivitas</span>
-                            <span class="text-xs opacity-75">⭐</span>
-                        </div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Tentang Domain Ini</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Berpikir komputasional adalah proses pemecahan masalah yang mencakup dekomposisi, pengenalan pola, 
+                        abstraksi, dan algoritma. Domain ini juga mencakup analisis data untuk memahami informasi dan membuat keputusan berdasarkan data.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">📊 Analisis Data Sederhana</h3>
+                        <p class="text-gray-600 mb-6">Belajar menganalisis dan menginterpretasi data dengan cara yang mudah dipahami</p>
+                        <button onclick="openExternalLink('https://example.com/analisis-data')" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                            Mulai Belajar
+                        </button>
                     </div>
                     
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('note-taking')">
-                        <div class="text-3xl mb-3">📝</div>
-                        <h3 class="text-xl font-bold mb-2">Smart Notes</h3>
-                        <p class="text-sm opacity-90">Aplikasi catatan dengan fitur canggih</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Notes</span>
-                            <span class="text-xs opacity-75">Trending</span>
-                        </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🧩 Dekomposisi Masalah</h3>
+                        <p class="text-gray-600 mb-6">Memecah masalah kompleks menjadi bagian-bagian yang lebih kecil dan mudah diselesaikan</p>
+                        <button onclick="openExternalLink('https://example.com/dekomposisi')" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                            Mulai Belajar
+                        </button>
                     </div>
                     
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('calendar')">
-                        <div class="text-3xl mb-3">📅</div>
-                        <h3 class="text-xl font-bold mb-2">Calendar Pro</h3>
-                        <p class="text-sm opacity-90">Kalender pintar dengan reminder</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Kalender</span>
-                            <span class="text-xs opacity-75">⭐</span>
-                        </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🔍 Pengenalan Pola</h3>
+                        <p class="text-gray-600 mb-6">Mengidentifikasi kesamaan dan perbedaan dalam data atau situasi</p>
+                        <button onclick="openExternalLink('https://example.com/pengenalan-pola')" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                            Mulai Belajar
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🎯 Abstraksi</h3>
+                        <p class="text-gray-600 mb-6">Fokus pada aspek penting dan mengabaikan detail yang tidak relevan</p>
+                        <button onclick="openExternalLink('https://example.com/abstraksi')" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                            Mulai Belajar
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">📈 Visualisasi Data</h3>
+                        <p class="text-gray-600 mb-6">Menyajikan data dalam bentuk grafik dan diagram yang mudah dipahami</p>
+                        <button onclick="openExternalLink('https://example.com/visualisasi-data')" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                            Mulai Belajar
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🤔 Pemecahan Masalah Logis</h3>
+                        <p class="text-gray-600 mb-6">Menggunakan logika dan reasoning untuk menyelesaikan berbagai masalah</p>
+                        <button onclick="openExternalLink('https://example.com/pemecahan-masalah')" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                            Mulai Belajar
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 3. Keuangan & Bisnis -->
-        <div class="mb-8">
-            <div class="category-header text-white p-4 rounded-t-xl">
-                <h2 class="text-2xl font-bold flex items-center">
-                    <span class="mr-3">💰</span>
-                    Keuangan & Bisnis
-                </h2>
+        <!-- Halaman Algoritma & Otomasi -->
+        <div id="algoritma-page" class="page-content hidden">
+            <div class="bg-green-600 py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">⚙️ Algoritma & Otomasi Sederhana</h1>
+                    <p class="text-xl text-green-100">Memahami langkah-langkah sistematis dan otomatisasi proses</p>
+                </div>
             </div>
-            <div class="bg-white rounded-b-xl p-6 shadow-lg">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('expense-tracker')">
-                        <div class="text-3xl mb-3">💳</div>
-                        <h3 class="text-xl font-bold mb-2">Expense Tracker</h3>
-                        <p class="text-sm opacity-90">Lacak pengeluaran dan anggaran harian</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Keuangan</span>
-                            <span class="text-xs opacity-75">⭐</span>
-                        </div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Tentang Domain Ini</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Algoritma adalah serangkaian langkah-langkah logis untuk menyelesaikan masalah. Otomasi sederhana 
+                        membantu siswa memahami bagaimana teknologi dapat membantu mengotomatisasi tugas-tugas berulang.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">📝 Penulisan Algoritma</h3>
+                        <p class="text-gray-600 mb-6">Belajar menulis langkah-langkah sistematis untuk menyelesaikan masalah</p>
+                        <button onclick="openExternalLink('https://example.com/penulisan-algoritma')" class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                            Mulai Belajar
+                        </button>
                     </div>
                     
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('invoice-generator')">
-                        <div class="text-3xl mb-3">🧾</div>
-                        <h3 class="text-xl font-bold mb-2">Invoice Generator</h3>
-                        <p class="text-sm opacity-90">Buat invoice profesional dengan mudah</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Bisnis</span>
-                            <span class="text-xs opacity-75">Populer</span>
-                        </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🔄 Flowchart</h3>
+                        <p class="text-gray-600 mb-6">Membuat diagram alur untuk memvisualisasikan langkah-langkah algoritma</p>
+                        <button onclick="openExternalLink('https://example.com/flowchart')" class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                            Mulai Belajar
+                        </button>
                     </div>
                     
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('crypto-tracker')">
-                        <div class="text-3xl mb-3">₿</div>
-                        <h3 class="text-xl font-bold mb-2">Crypto Tracker</h3>
-                        <p class="text-sm opacity-90">Monitor harga cryptocurrency real-time</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Crypto</span>
-                            <span class="text-xs opacity-75">Live</span>
-                        </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🤖 Otomasi Sederhana</h3>
+                        <p class="text-gray-600 mb-6">Memahami konsep otomatisasi dalam kehidupan sehari-hari</p>
+                        <button onclick="openExternalLink('https://example.com/otomasi-sederhana')" class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                            Mulai Belajar
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🎮 Pemrograman Visual</h3>
+                        <p class="text-gray-600 mb-6">Belajar pemrograman menggunakan blok visual seperti Scratch</p>
+                        <button onclick="openExternalLink('https://example.com/pemrograman-visual')" class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                            Mulai Belajar
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🔧 Debugging</h3>
+                        <p class="text-gray-600 mb-6">Menemukan dan memperbaiki kesalahan dalam algoritma atau program</p>
+                        <button onclick="openExternalLink('https://example.com/debugging')" class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                            Mulai Belajar
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">⏱️ Efisiensi Algoritma</h3>
+                        <p class="text-gray-600 mb-6">Memahami cara membuat algoritma yang lebih efisien dan cepat</p>
+                        <button onclick="openExternalLink('https://example.com/efisiensi-algoritma')" class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                            Mulai Belajar
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 4. Hiburan & Games -->
-        <div class="mb-8">
-            <div class="category-header text-white p-4 rounded-t-xl">
-                <h2 class="text-2xl font-bold flex items-center">
-                    <span class="mr-3">🎮</span>
-                    Hiburan & Games
-                </h2>
+        <!-- Halaman Internet & Kolaborasi -->
+        <div id="internet-page" class="page-content hidden">
+            <div class="bg-purple-600 py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">🌐 Pemanfaatan Internet & Kolaborasi Digital</h1>
+                    <p class="text-xl text-purple-100">Memanfaatkan internet untuk pembelajaran dan kolaborasi</p>
+                </div>
             </div>
-            <div class="bg-white rounded-b-xl p-6 shadow-lg">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('puzzle-game')">
-                        <div class="text-3xl mb-3">🧩</div>
-                        <h3 class="text-xl font-bold mb-2">Puzzle Master</h3>
-                        <p class="text-sm opacity-90">Koleksi puzzle dan teka-teki menarik</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Puzzle</span>
-                            <span class="text-xs opacity-75">⭐</span>
-                        </div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Tentang Domain Ini</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Domain ini fokus pada pemanfaatan internet secara efektif dan aman untuk pembelajaran, 
+                        serta mengembangkan keterampilan kolaborasi digital yang diperlukan di era modern.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🔍 Pencarian Informasi</h3>
+                        <p class="text-gray-600 mb-6">Teknik mencari informasi yang akurat dan terpercaya di internet</p>
+                        <button onclick="openExternalLink('https://example.com/pencarian-informasi')" class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+                            Mulai Belajar
+                        </button>
                     </div>
                     
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('music-player')">
-                        <div class="text-3xl mb-3">🎵</div>
-                        <h3 class="text-xl font-bold mb-2">Music Player</h3>
-                        <p class="text-sm opacity-90">Pemutar musik dengan visualizer</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Musik</span>
-                            <span class="text-xs opacity-75">Trending</span>
-                        </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🤝 Kolaborasi Online</h3>
+                        <p class="text-gray-600 mb-6">Bekerja sama dalam proyek menggunakan platform digital</p>
+                        <button onclick="openExternalLink('https://example.com/kolaborasi-online')" class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+                            Mulai Belajar
+                        </button>
                     </div>
                     
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('quiz-app')">
-                        <div class="text-3xl mb-3">🧠</div>
-                        <h3 class="text-xl font-bold mb-2">Quiz Challenge</h3>
-                        <p class="text-sm opacity-90">Kuis interaktif berbagai topik</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Kuis</span>
-                            <span class="text-xs opacity-75">⭐</span>
-                        </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">📧 Komunikasi Digital</h3>
+                        <p class="text-gray-600 mb-6">Berkomunikasi secara efektif menggunakan email dan platform digital</p>
+                        <button onclick="openExternalLink('https://example.com/komunikasi-digital')" class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+                            Mulai Belajar
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">☁️ Cloud Computing</h3>
+                        <p class="text-gray-600 mb-6">Memahami dan menggunakan layanan penyimpanan cloud</p>
+                        <button onclick="openExternalLink('https://example.com/cloud-computing')" class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+                            Mulai Belajar
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🌍 Jejak Digital</h3>
+                        <p class="text-gray-600 mb-6">Memahami konsep jejak digital dan dampaknya</p>
+                        <button onclick="openExternalLink('https://example.com/jejak-digital')" class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+                            Mulai Belajar
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🔒 Keamanan Internet</h3>
+                        <p class="text-gray-600 mb-6">Praktik keamanan dasar saat menggunakan internet</p>
+                        <button onclick="openExternalLink('https://example.com/keamanan-internet')" class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+                            Mulai Belajar
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 5. Kesehatan & Lifestyle -->
-        <div class="mb-8">
-            <div class="category-header text-white p-4 rounded-t-xl">
-                <h2 class="text-2xl font-bold flex items-center">
-                    <span class="mr-3">🏃‍♂️</span>
-                    Kesehatan & Lifestyle
-                </h2>
+        <!-- Halaman Kreasi & Etika Digital -->
+        <div id="etika-page" class="page-content hidden">
+            <div class="bg-pink-600 py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">🎨 Kreasi & Etika Digital</h1>
+                    <p class="text-xl text-pink-100">Berkreasi dengan teknologi sambil memahami etika digital</p>
+                </div>
             </div>
-            <div class="bg-white rounded-b-xl p-6 shadow-lg">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('fitness-tracker')">
-                        <div class="text-3xl mb-3">💪</div>
-                        <h3 class="text-xl font-bold mb-2">Fitness Tracker</h3>
-                        <p class="text-sm opacity-90">Pantau aktivitas dan latihan harian</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Fitness</span>
-                            <span class="text-xs opacity-75">⭐</span>
-                        </div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Tentang Domain Ini</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Domain ini mengembangkan kreativitas siswa dalam menggunakan teknologi digital sambil memahami 
+                        tanggung jawab dan etika dalam berinteraksi di dunia digital.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🎨 Desain Grafis Digital</h3>
+                        <p class="text-gray-600 mb-6">Membuat karya seni dan desain menggunakan tools digital</p>
+                        <button onclick="openExternalLink('https://example.com/desain-grafis')" class="w-full bg-pink-600 text-white py-2 px-4 rounded-lg hover:bg-pink-700 transition-colors">
+                            Mulai Belajar
+                        </button>
                     </div>
                     
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('recipe-book')">
-                        <div class="text-3xl mb-3">👨‍🍳</div>
-                        <h3 class="text-xl font-bold mb-2">Recipe Book</h3>
-                        <p class="text-sm opacity-90">Koleksi resep masakan favorit</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Kuliner</span>
-                            <span class="text-xs opacity-75">Populer</span>
-                        </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">📱 Pembuatan Konten Digital</h3>
+                        <p class="text-gray-600 mb-6">Membuat video, podcast, dan konten multimedia lainnya</p>
+                        <button onclick="openExternalLink('https://example.com/konten-digital')" class="w-full bg-pink-600 text-white py-2 px-4 rounded-lg hover:bg-pink-700 transition-colors">
+                            Mulai Belajar
+                        </button>
                     </div>
                     
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('meditation')">
-                        <div class="text-3xl mb-3">🧘‍♀️</div>
-                        <h3 class="text-xl font-bold mb-2">Meditation Guide</h3>
-                        <p class="text-sm opacity-90">Panduan meditasi dan relaksasi</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Wellness</span>
-                            <span class="text-xs opacity-75">Zen</span>
-                        </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">⚖️ Etika Digital</h3>
+                        <p class="text-gray-600 mb-6">Memahami norma dan etika dalam berinteraksi di dunia digital</p>
+                        <button onclick="openExternalLink('https://example.com/etika-digital')" class="w-full bg-pink-600 text-white py-2 px-4 rounded-lg hover:bg-pink-700 transition-colors">
+                            Mulai Belajar
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">©️ Hak Cipta Digital</h3>
+                        <p class="text-gray-600 mb-6">Memahami hak cipta dan penggunaan konten digital yang legal</p>
+                        <button onclick="openExternalLink('https://example.com/hak-cipta')" class="w-full bg-pink-600 text-white py-2 px-4 rounded-lg hover:bg-pink-700 transition-colors">
+                            Mulai Belajar
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🛡️ Cyberbullying Prevention</h3>
+                        <p class="text-gray-600 mb-6">Mencegah dan mengatasi cyberbullying di lingkungan digital</p>
+                        <button onclick="openExternalLink('https://example.com/cyberbullying')" class="w-full bg-pink-600 text-white py-2 px-4 rounded-lg hover:bg-pink-700 transition-colors">
+                            Mulai Belajar
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🌟 Kewargaan Digital</h3>
+                        <p class="text-gray-600 mb-6">Menjadi warga digital yang bertanggung jawab dan positif</p>
+                        <button onclick="openExternalLink('https://example.com/kewargaan-digital')" class="w-full bg-pink-600 text-white py-2 px-4 rounded-lg hover:bg-pink-700 transition-colors">
+                            Mulai Belajar
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+    </main>
 
-        <!-- 6. Kreatif & Design -->
-        <div class="mb-8">
-            <div class="category-header text-white p-4 rounded-t-xl">
-                <h2 class="text-2xl font-bold flex items-center">
-                    <span class="mr-3">🎨</span>
-                    Kreatif & Design
-                </h2>
-            </div>
-            <div class="bg-white rounded-b-xl p-6 shadow-lg">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('color-palette')">
-                        <div class="text-3xl mb-3">🎨</div>
-                        <h3 class="text-xl font-bold mb-2">Color Palette Generator</h3>
-                        <p class="text-sm opacity-90">Buat palet warna untuk desain</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Design</span>
-                            <span class="text-xs opacity-75">⭐</span>
-                        </div>
-                    </div>
-                    
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('logo-maker')">
-                        <div class="text-3xl mb-3">🏷️</div>
-                        <h3 class="text-xl font-bold mb-2">Logo Maker</h3>
-                        <p class="text-sm opacity-90">Pembuat logo sederhana dan elegan</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Logo</span>
-                            <span class="text-xs opacity-75">Trending</span>
-                        </div>
-                    </div>
-                    
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('photo-editor')">
-                        <div class="text-3xl mb-3">📸</div>
-                        <h3 class="text-xl font-bold mb-2">Photo Editor</h3>
-                        <p class="text-sm opacity-90">Edit foto dengan filter dan efek</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Photo</span>
-                            <span class="text-xs opacity-75">Pro</span>
-                        </div>
-                    </div>
-                </div>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold mb-4">📚 Informatika Fase D</h3>
+                <p class="text-gray-300 mb-4">Platform pembelajaran informatika untuk siswa kelas VII-IX</p>
+                <p class="text-gray-400 text-sm">© 2024 Informatika Fase D. Semua hak dilindungi.</p>
             </div>
         </div>
-
-        <!-- 7. Utilitas & Converter -->
-        <div class="mb-8">
-            <div class="category-header text-white p-4 rounded-t-xl">
-                <h2 class="text-2xl font-bold flex items-center">
-                    <span class="mr-3">🔧</span>
-                    Utilitas & Converter
-                </h2>
-            </div>
-            <div class="bg-white rounded-b-xl p-6 shadow-lg">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('unit-converter')">
-                        <div class="text-3xl mb-3">⚖️</div>
-                        <h3 class="text-xl font-bold mb-2">Unit Converter</h3>
-                        <p class="text-sm opacity-90">Konversi satuan panjang, berat, suhu</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Converter</span>
-                            <span class="text-xs opacity-75">Essential</span>
-                        </div>
-                    </div>
-                    
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('qr-generator')">
-                        <div class="text-3xl mb-3">📱</div>
-                        <h3 class="text-xl font-bold mb-2">QR Code Generator</h3>
-                        <p class="text-sm opacity-90">Buat QR code untuk berbagai keperluan</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">QR Code</span>
-                            <span class="text-xs opacity-75">⭐</span>
-                        </div>
-                    </div>
-                    
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('password-generator')">
-                        <div class="text-3xl mb-3">🔐</div>
-                        <h3 class="text-xl font-bold mb-2">Password Generator</h3>
-                        <p class="text-sm opacity-90">Buat password kuat dan aman</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Security</span>
-                            <span class="text-xs opacity-75">Secure</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 8. Aplikasi Khusus -->
-        <div class="mb-8">
-            <div class="category-header text-white p-4 rounded-t-xl">
-                <h2 class="text-2xl font-bold flex items-center">
-                    <span class="mr-3">🌟</span>
-                    Aplikasi Khusus
-                </h2>
-            </div>
-            <div class="bg-white rounded-b-xl p-6 shadow-lg">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('weather-app')">
-                        <div class="text-3xl mb-3">🌤️</div>
-                        <h3 class="text-xl font-bold mb-2">Weather Forecast</h3>
-                        <p class="text-sm opacity-90">Prakiraan cuaca akurat dan detail</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Weather</span>
-                            <span class="text-xs opacity-75">Live</span>
-                        </div>
-                    </div>
-                    
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('translator')">
-                        <div class="text-3xl mb-3">🌐</div>
-                        <h3 class="text-xl font-bold mb-2">Smart Translator</h3>
-                        <p class="text-sm opacity-90">Terjemahan multi-bahasa instan</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Translate</span>
-                            <span class="text-xs opacity-75">AI</span>
-                        </div>
-                    </div>
-                    
-                    <div class="app-card text-white rounded-xl p-6 cursor-pointer" onclick="openApp('habit-tracker')">
-                        <div class="text-3xl mb-3">📊</div>
-                        <h3 class="text-xl font-bold mb-2">Habit Tracker</h3>
-                        <p class="text-sm opacity-90">Pantau dan bangun kebiasaan baik</p>
-                        <div class="mt-4 flex items-center justify-between">
-                            <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">Habits</span>
-                            <span class="text-xs opacity-75">⭐</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="text-center py-8 border-t border-gray-200">
-            <p class="text-gray-600 mb-4">🚀 Terus berkembang dengan aplikasi-aplikasi baru!</p>
-            <div class="flex justify-center space-x-4">
-                <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition-colors">
-                    📝 Request Aplikasi Baru
-                </button>
-                <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-colors">
-                    💡 Berikan Feedback
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Loading Modal -->
-    <div id="loadingModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
-        <div class="bg-white rounded-xl p-8 text-center">
-            <div class="pulse-animation text-4xl mb-4">🚀</div>
-            <h3 class="text-xl font-bold mb-2">Memuat Aplikasi...</h3>
-            <p class="text-gray-600" id="loadingText">Sedang menyiapkan aplikasi untuk Anda</p>
-        </div>
-    </div>
+    </footer>
 
     <script>
-        // Search functionality
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const appCards = document.querySelectorAll('.app-card');
-            
-            appCards.forEach(card => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                const description = card.querySelector('p').textContent.toLowerCase();
-                
-                if (title.includes(searchTerm) || description.includes(searchTerm)) {
-                    card.style.display = 'block';
-                    card.parentElement.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+        // Navigation functionality
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => {
+                page.classList.add('hidden');
             });
-        });
-
-        // Populate favorite apps
-        function populateFavoriteApps() {
-            const favoriteApps = [
-                { id: 'math-formulas', icon: '📐', title: 'Rumus Matematika SMP', category: 'Matematika' },
-                { id: 'task-manager', icon: '✅', title: 'Task Manager', category: 'Produktivitas' },
-                { id: 'expense-tracker', icon: '💳', title: 'Expense Tracker', category: 'Keuangan' },
-                { id: 'puzzle-game', icon: '🧩', title: 'Puzzle Master', category: 'Game' },
-                { id: 'fitness-tracker', icon: '💪', title: 'Fitness Tracker', category: 'Kesehatan' },
-                { id: 'color-palette', icon: '🎨', title: 'Color Palette Generator', category: 'Design' },
-                { id: 'qr-generator', icon: '📱', title: 'QR Code Generator', category: 'Utilitas' }
-            ];
-
-            const container = document.getElementById('favoriteApps');
-            container.innerHTML = favoriteApps.map(app => `
-                <div class="app-card text-white rounded-xl p-4 cursor-pointer" onclick="openApp('${app.id}')">
-                    <div class="text-2xl mb-2">${app.icon}</div>
-                    <h4 class="font-bold mb-1">${app.title}</h4>
-                    <span class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">${app.category}</span>
-                </div>
-            `).join('');
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId + '-page');
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                targetPage.classList.add('fade-in');
+            }
+            
+            // Update active navigation
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('bg-white', 'bg-opacity-20');
+            });
         }
 
-        // Open app function
-        function openApp(appId) {
-            const loadingModal = document.getElementById('loadingModal');
-            const loadingText = document.getElementById('loadingText');
-            
-            // Show loading
-            loadingModal.classList.remove('hidden');
-            
-            // Simulate loading with different messages
-            const messages = [
-                'Menyiapkan antarmuka...',
-                'Memuat komponen...',
-                'Hampir selesai...',
-                'Aplikasi siap digunakan!'
-            ];
-            
-            let messageIndex = 0;
-            const messageInterval = setInterval(() => {
-                if (messageIndex < messages.length) {
-                    loadingText.textContent = messages[messageIndex];
-                    messageIndex++;
-                } else {
-                    clearInterval(messageInterval);
-                    
-                    // Hide loading and show app info
-                    setTimeout(() => {
-                        loadingModal.classList.add('hidden');
-                        showAppInfo(appId);
-                    }, 500);
-                }
-            }, 800);
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
         }
 
-        // Show app info (placeholder for actual app opening)
-        function showAppInfo(appId) {
-            const appNames = {
-                'math-formulas': 'Rumus Matematika SMP',
-                'task-manager': 'Task Manager',
-                'expense-tracker': 'Expense Tracker',
-                'puzzle-game': 'Puzzle Master',
-                'fitness-tracker': 'Fitness Tracker',
-                'color-palette': 'Color Palette Generator',
-                'qr-generator': 'QR Code Generator'
-            };
-            
-            alert(`🚀 Membuka aplikasi: ${appNames[appId] || 'Aplikasi'}\n\nDalam implementasi nyata, ini akan membuka aplikasi yang sesuai atau mengarahkan ke URL aplikasi tersebut.`);
+        function openExternalLink(url) {
+            // Open external learning resources in new tab
+            window.open(url, '_blank', 'noopener,noreferrer');
         }
 
-        // Initialize
+        // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            populateFavoriteApps();
-            
-            // Animate statistics on load
-            setTimeout(() => {
-                animateNumber('totalApps', 25);
-                animateNumber('activeApps', 23);
-                animateNumber('categories', 8);
-                animateNumber('favorites', 7);
-            }, 500);
+            showPage('home');
         });
 
-        // Animate numbers
-        function animateNumber(elementId, targetNumber) {
-            const element = document.getElementById(elementId);
-            let currentNumber = 0;
-            const increment = targetNumber / 20;
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuButton = event.target.closest('button');
             
-            const timer = setInterval(() => {
-                currentNumber += increment;
-                if (currentNumber >= targetNumber) {
-                    currentNumber = targetNumber;
-                    clearInterval(timer);
-                }
-                element.textContent = Math.floor(currentNumber);
-            }, 50);
-        }
-
-        // Close loading modal when clicking outside
-        document.getElementById('loadingModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.add('hidden');
+            if (!mobileMenu.contains(event.target) && !menuButton) {
+                mobileMenu.classList.add('hidden');
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978a67120578959b',t:'MTc1Njc4ODc5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'991cc7ce65e96141',t:'MTc2MTAwODAzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
-
